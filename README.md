@@ -27,7 +27,30 @@ facade : Modal Library
  - [jquery cheat sheet](http://overapi.com/jquery/)
 
 ###Libraries
+ - jquery
+   - DOM manipulation
+   - utilities (specifically proxy and on)
+  - underscore
+    - utilities
 
 ###Framework Integration
+Integrating this library into Backbone might involve a built in "facade" method views have that render their $el inside a modal.
 
-###Time Spent
+###Time
+####Distribution
+ Activity                         | Time
+ ---------------------------------|----------
+ Documentation                    | 0:13:08
+ modal rendering                  | 0:15:58
+ resizing, open and close methods |	0:27:58
+ handle clicks                    |	0:09:03
+ render dom content               |	0:24:03
+ display loading message          |	0:13:15
+ total                            | 1:43:25
+ 
+####If I had more time...
+ I would spend additional time on the following items, in order of priority
+ 
+ 1. Animation: allowing the user to specify animations (fly in, fly out, etc.) with durations
+ 2. Default close button: The modal would ideally have a close button in the top right corner
+ 3. Layouts: The library could come with preset layouts that might include a header and content, a login form, etc.
