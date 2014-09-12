@@ -22,6 +22,7 @@ facade : Modal Library
 ###Browsers
 
 ###Resources
+ - [displaying text while loading an image](http://community.sitepoint.com/t/displaying-text-while-an-image-is-down-loading/12400/3)
 
 ###Libraries
 
