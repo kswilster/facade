@@ -1,5 +1,13 @@
 facade : Modal Library
 ======
+###Using the library
+create a facade using "new facade(content, options)"
+or just run one of my tests using...
+ - test.domTest()
+ - test.imgTest()
+ - test.imgLoadTest()
+ - test.imgContentClickTest()
+
 
 ###Interface
  - facade(content, options) 
