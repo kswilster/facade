@@ -22,6 +22,9 @@ window.facade = function(content, options) {
   this.modalClick = $.proxy(this.modalClick, this);
   this.bgClick = $.proxy(this.bgClick, this);
   this.hidePlaceholder = $.proxy(this.hidePlaceholder, this);
+
+  // render modal
+  this.render();
 }
 
 facade.prototype.render = function() {
@@ -95,7 +98,6 @@ window.tests = {
   domTest: function() {
     content = $("<div><h2>Test</h2></div>")[0]
     f = new facade(content);
-    f.render();
   },
 
   imgTest: function() {
@@ -110,7 +112,6 @@ window.tests = {
       loadMsg: "wait for your image to load!"
     }
     f = new facade(img, options);
-    f.render();
   },
 
   imgContentClickTest: function() {
@@ -119,6 +120,5 @@ window.tests = {
       innerClose: true
     }
     f = new facade(img, options);
-    f.render();
   }
 }
