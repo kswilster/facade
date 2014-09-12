@@ -18,3 +18,7 @@
   background: white;
   overflow: hidden;
 }
+
+.placeholder {
+  position: absolute;
+}

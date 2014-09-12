@@ -14,28 +14,34 @@ window.facade = function(content, options) {
   this.dom = {}
   this.templates = {
     bg : "<div id='facade-background'></div>",
-    modal: "<div id='facade-modal'></div>"
+    modal: "<div id='facade-modal'></div>",
+    placeholder: "<h2 class='placeholder'>"+this.options.loadMsg+"</p>"
   }
 
   // proxy event methods
   this.modalClick = $.proxy(this.modalClick, this);
   this.bgClick = $.proxy(this.bgClick, this);
+  this.hidePlaceholder = $.proxy(this.hidePlaceholder, this);
 }
 
 facade.prototype.render = function() {
   // remove existing dom elements
   _.chain(this.dom).values().invoke('remove');
 
-  // create dom elements
+  // handle content
   if (_.isElement(this.content))
     modalContent = this.content;
   else if (!_.isUndefined(this.content.jquery))
-    modalContent = this.content[0];
+    modalContent = this.content;
   else
-    modalContent = $('<img>').attr('src', this.content)[0]
+    modalContent = $('<img>').attr('src', this.content).load(this.hidePlaceholder);
 
+  // create dom elements
+  this.dom.placeholder = $(this.templates.placeholder);
   this.dom.bg = $(this.templates.bg);
-  this.dom.modal = $(this.templates.modal).append(modalContent);
+  this.dom.modal = $(this.templates.modal)
+    .append(this.dom.placeholder)
+    .append(modalContent);
 
   // register handlers
   this.dom.bg.on('click', this.bgClick);
@@ -68,6 +74,11 @@ facade.prototype.modalClick = function(e) {
 facade.prototype.bgClick = function(e) {
   if (this.options.outerClose)
     this.close();
+}
+
+facade.prototype.hidePlaceholder = function(e) {
+  if (!_.isUndefined(this.dom.placeholder))
+    this.dom.placeholder.hide();
 }
 
 facade.prototype.open = function() {
