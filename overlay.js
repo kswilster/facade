@@ -1,4 +1,3 @@
-//TODO: render content, assuming it is DOM element
 // NOTE: requires underscore and jquery
 
 window.facade = function(content, options) {
@@ -10,6 +9,7 @@ window.facade = function(content, options) {
     loadMsg: ""
   }
 
+  this.content = content;
   this.options = _.extend({}, defaultOptions, options);
   this.dom = {}
   this.templates = {
@@ -27,8 +27,15 @@ facade.prototype.render = function() {
   _.chain(this.dom).values().invoke('remove');
 
   // create dom elements
+  if (_.isElement(this.content))
+    modalContent = this.content;
+  else if (!_.isUndefined(this.content.jquery))
+    modalContent = this.content[0];
+  else
+    modalContent = $('<img>').attr('src', this.content)[0]
+
   this.dom.bg = $(this.templates.bg);
-  this.dom.modal = $(this.templates.modal);
+  this.dom.modal = $(this.templates.modal).append(modalContent);
 
   // register handlers
   this.dom.bg.on('click', this.bgClick);
@@ -71,4 +78,36 @@ facade.prototype.open = function() {
 facade.prototype.close = function() {
   this.dom.bg.hide();
   this.dom.modal.hide();
+}
+
+window.tests = {
+  domTest: function() {
+    content = $("<div><h2>Test</h2></div>")[0]
+    f = new facade(content);
+    f.render();
+  },
+
+  imgTest: function() {
+    img = "http://assets.worldwildlife.org/photos/2090/images/hero_small/Sumatran-Tiger-Hero.jpg?1345559303";
+    f = new facade(img);
+    f.render();
+  },
+
+  imgLoadTest: function() {
+    img = "http://www.picshunger.com/wp-content/uploads/2014/04/335.jpg";
+    options = {
+      loadMsg: "wait for your image to load!"
+    }
+    f = new facade(img, options);
+    f.render();
+  },
+
+  imgContentClickTest: function() {
+    img = "http://assets.worldwildlife.org/photos/2090/images/hero_small/Sumatran-Tiger-Hero.jpg?1345559303";
+    options = {
+      innerClose: true
+    }
+    f = new facade(img, options);
+    f.render();
+  }
 }

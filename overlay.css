@@ -16,4 +16,5 @@
   left: 50%;
   z-index: 1001;
   background: white;
+  overflow: hidden;
 }
